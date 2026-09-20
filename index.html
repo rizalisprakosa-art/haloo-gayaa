@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>For Someone Special 💗</title>
+<meta name="description" content="Sebuah kartu ulang tahun kecil, dibuat khusus buat kamu.">
+<meta name="theme-color" content="#120d18">
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Preview saat link dibagikan di WhatsApp / IG / Telegram -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ada sesuatu buat kamu 💗">
+<meta property="og:description" content="Buka ya, jangan di-skip. Selamat ulang tahun!">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💗</text></svg>">
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#120d18;
+    --pink:#ff5f9a;
+    --purple:#b96cff;
+    --soft:#ff9fc2;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+    background:var(--bg);
+  }
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
+    background:var(--bg);
+    color:#fff;
+    overflow-x:hidden;
+    -webkit-text-size-adjust:100%;
+  }
+  .page{
+    min-height:100vh;
+    min-height:100svh;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:40px 20px;
+    position:relative;
+    overflow:hidden;
+  }
+  .page.active{display:flex;animation:fadeIn .5s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+  .glow{
+    position:absolute;width:280px;height:280px;border-radius:50%;
+    background:#ff4f91;filter:blur(100px);opacity:.2;pointer-events:none;
+  }
+  .g1{top:-100px;left:-80px}
+  .g2{right:-100px;bottom:-100px;background:#9b5cff}
+
+  .card{
+    width:min(720px,100%);
+    padding:42px 28px;
+    text-align:center;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.13);
+    border-radius:28px;
+    -webkit-backdrop-filter:blur(16px);
+    backdrop-filter:blur(16px);
+    box-shadow:0 20px 70px rgba(0,0,0,.35);
+    position:relative;z-index:2;
+  }
+  .small{font-size:.9rem;color:#ffb9d2;letter-spacing:2px;text-transform:uppercase}
+  h1{font-size:clamp(2.3rem,8vw,5rem);line-height:1.05;margin:16px 0}
+  h2{font-size:clamp(1.8rem,6vw,3rem);margin-bottom:18px;line-height:1.15}
+  p{font-size:1.05rem;line-height:1.8;color:#eee}
+  .name{color:#ff8fba}
+
+  button{
+    border:0;border-radius:999px;padding:14px 25px;margin-top:26px;
+    background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;
+    font-family:inherit;font-weight:700;font-size:1rem;cursor:pointer;
+    box-shadow:0 10px 30px rgba(255,95,154,.25);
+    transition:transform .25s ease;
+  }
+  button:hover{transform:translateY(-3px) scale(1.02)}
+  button:active{transform:scale(.98)}
+  button:focus-visible{outline:2px solid #fff;outline-offset:3px}
+
+  .heart{font-size:4rem;animation:pulse 1.5s infinite}
+  @keyframes pulse{50%{transform:scale(1.15)}}
+
+  .typing{min-height:120px}
+  .caret{
+    display:inline-block;width:2px;height:1.05em;background:var(--soft);
+    vertical-align:-3px;animation:blink .8s steps(1) infinite;
+  }
+  @keyframes blink{50%{opacity:0}}
+
+  .timeline{display:grid;gap:15px;text-align:left;margin-top:25px}
+  .memory{
+    padding:18px 20px;border-radius:18px;background:rgba(255,255,255,.06);
+    border-left:3px solid #ff79aa;
+  }
+  .memory b{display:block;color:var(--soft);margin-bottom:5px}
+
+  .surprise{
+    font-size:5rem;cursor:pointer;animation:bounce 1.5s infinite;
+    display:inline-block;margin:15px;background:none;box-shadow:none;
+    padding:0;border-radius:0;
+  }
+  .surprise:hover{transform:none}
+  @keyframes bounce{50%{transform:translateY(-12px)}}
+
+  .hidden{display:none}
+  .final-msg{font-size:1.15rem}
+  .signature{margin-top:25px;color:var(--soft);font-style:italic}
+
+  .progress{
+    position:fixed;top:env(safe-area-inset-top,0px);left:0;
+    height:4px;background:#ff76aa;width:0;z-index:20;
+    transition:width .4s ease;
+  }
+
+  .confetti{
+    position:fixed;top:-20px;width:8px;height:14px;z-index:50;
+    pointer-events:none;animation:fall linear forwards;
+  }
+  @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+  @media(max-width:500px){
+    .card{padding:32px 20px;border-radius:22px}
+    p{font-size:.98rem}
+    .final-msg{font-size:1.05rem}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<!-- ================================================================
+     EDIT BAGIAN INI SAJA
+     ================================================================ -->
+<script>
+  const recipient = "Gayaaa";
+  const sender    = "Rizal";
+
+  const typingText = "Haloo kali ini aku ngucapinnya agak beda nihh wkwk. Semoga kamu suka yaa tapi jujur aku bingung si harus bilang apa aja disini. Ditunggu aja yang versi longtextnya...";
+
+  const birthdayWish = `
+    Selamat ulang tahun, yaa Gayaaa! 🎂<br><br>
+    Semoga di umur yang 20 tahun ini kamu makin banyak ketemu hal-hal
+    yang bikin kamu seneng terus yaa. Semoga hari-harimu ke depannya selalu dipermudah.
+    Aku juga mau ngucapin makasih banyak ke kamu sama semua hal yang udah kamu lakuin ke aku
+    selama ini, kalo ada apa apa jadiin aku tempat ceritamu yaa!
+    Jan pernah ngerasa kalo kamu sendiri, ya. Love banyak banyak deh ehehe 🤍
+  `;
+</script>
+<!-- ================================================================ -->
+
+<section class="page active" id="p1">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="card">
+    <div class="heart">💗</div>
+    <div class="small">Aku ada sesuatu ni buat kamuu...</div>
+    <h1>Hey, <span class="name" id="r1"></span>!</h1>
+    <p>Haloo cantikk HBD yaa uda 20 tahun aja kakak satu nihh. Selamat membaca ya</p>
+    <button type="button" data-next="2">Ayoo di bukaa →</button>
+  </div>
+</section>
+
+<section class="page" id="p2">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="card">
+    <div class="small">sebelum lanjut...</div>
+    <h2>Aku mau bilang sesuatu.</h2>
+    <p class="typing" id="typing"></p>
+    <button type="button" data-next="3">Lanjutt, kalo kamu kepoo 👀</button>
+  </div>
+</section>
+
+<section class="page" id="p3">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="card">
+    <div class="small">hari spesial muu nihh</div>
+    <h2>Happy Birthday <span class="name" id="r2"></span>! 🎂</h2>
+    <p id="wish"></p>
+    <button type="button" data-next="4">Masih ada lagii nihhh →</button>
+  </div>
+</section>
+
+<section class="page" id="p4">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="card">
+    <div class="small">sedikit pesan buat kamu</div>
+    <h2>Hal-hal yang mau aku sampaiin ke kamu</h2>
+    <div class="timeline">
+      <div class="memory">
+        <b>01 Semoga...</b>
+        Semoga pertemuan kita yang kemarin bisa makin ngeyakinin satu sama lain yaa
+        dan jadi awal yg baik buat kitaa.
+      </div>
+      <div class="memory">
+        <b>02 Reminder...</b>
+        Aku cuma mau ngingetinn jangan sering sering begadang yaa!! Makannya juga harus
+        dijaga jan sampe nanti ngerugiin diri kamu sendiri yaa, aku gaakan cape buat
+        ngingetin kamu koo.
+      </div>
+      <div class="memory">
+        <b>03 Makasih...</b>
+        Makasih banyak yaa uda mau sampe sejauh ini, selalu sabar sama aku, mau nerima aku
+        lagi, mau percaya sama aku, mau ngeusahain ini lagi buat kedua kalinya dan terutama
+        makasih banyak uda beraniin diri buat ketemu sama akuu.
+      </div>
+    </div>
+    <button type="button" data-next="5">Next nya apa yaa kira kiraa? →</button>
+  </div>
+</section>
+
+<section class="page" id="p5">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="card">
+    <div class="small">Terakhir nii, janji dehh</div>
+    <h2>Ada hadiah kecil kecilan ni</h2>
+    <div class="surprise" id="gift" role="button" tabindex="0" aria-label="Buka hadiah">🎁</div>
+    <p id="giftText">Klik hadiahnya yaa</p>
+    <div id="final" class="hidden">
+      <p class="final-msg">
+        Intinya, di hari ulang tahunmu ini aku berharap kamu sehat dan panjang umur, oiya
+        jan lupa semoga selalu ada akunya di tiap perjalananmu yaa wkwk. Semoga apa yang
+        kamu usahain selama ini bisa terwujud yaa, aku akan jadi orang yang selalu mendoakan
+        hal hal baik buat kamu. Aku tau kok kamu uda berusaha sekeras apa sampe bisa sejauh
+        inii. I'm so proud of you. Love you Gayaaa.
+        <br><br>
+        <b>Semoga tahun ini jadi tahun yang penuh cerita baik buat kamu, aku, dan kita.
+        We deserve to be better 🤍</b>
+      </p>
+      <p class="signature">— <span id="sender"></span></p>
+      <button type="button" id="celebrate">Happy Birthdayy! 🎉</button>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  "use strict";
+
+  const $ = (id) => document.getElementById(id);
+  const TOTAL_PAGES = 5;
+
+  /* ---- isi teks dinamis ---- */
+  $("r1").textContent = recipient;
+  $("r2").textContent = recipient;
+  $("sender").textContent = sender;
+  $("wish").innerHTML = birthdayWish;
+
+  /* ---- efek ketik (baru jalan saat halaman 2 dibuka) ---- */
+  let typed = false;
+  function runTyping() {
+    if (typed) return;
+    typed = true;
+
+    const el = $("typing");
+    const caret = document.createElement("span");
+    caret.className = "caret";
+    el.appendChild(caret);
+
+    let i = 0;
+    (function step() {
+      if (i >= typingText.length) {
+        setTimeout(() => caret.remove(), 1200);
+        return;
+      }
+      caret.before(document.createTextNode(typingText.charAt(i)));
+      i++;
+      setTimeout(step, 28);
+    })();
+  }
+
+  /* ---- navigasi halaman ---- */
+  function goTo(n) {
+    const target = $("p" + n);
+    if (!target) return;
+
+    document.querySelectorAll(".page").forEach((p) => p.classList.remove("active"));
+    target.classList.add("active");
+    window.scrollTo(0, 0);
+    $("progress").style.width = ((n - 1) / (TOTAL_PAGES - 1)) * 100 + "%";
+
+    if (n === 2) runTyping();
+    if (n === 5) confetti();
+  }
+
+  document.querySelectorAll("[data-next]").forEach((btn) => {
+    btn.addEventListener("click", () => goTo(Number(btn.dataset.next)));
+  });
+
+  /* ---- hadiah ---- */
+  let opened = false;
+  function openGift() {
+    if (opened) return;
+    opened = true;
+    $("giftText").textContent = "Nah, akhirnyaa! 💗";
+    $("gift").textContent = "💝";
+    $("final").classList.remove("hidden");
+    confetti();
+  }
+  $("gift").addEventListener("click", openGift);
+  $("gift").addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openGift(); }
+  });
+
+  $("celebrate").addEventListener("click", () => confetti());
+
+  /* ---- confetti ---- */
+  const COLORS = ["#ff6fa8", "#ffd166", "#b98cff", "#7ee8fa", "#ffffff"];
+  function confetti() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const frag = document.createDocumentFragment();
+    const nodes = [];
+
+    for (let j = 0; j < 80; j++) {
+      const c = document.createElement("div");
+      c.className = "confetti";
+      c.style.left = Math.random() * 100 + "vw";
+      c.style.animationDuration = (2 + Math.random() * 3) + "s";
+      c.style.background = COLORS[Math.floor(Math.random() * COLORS.length)];
+      c.style.transform = "rotate(" + Math.random() * 360 + "deg)";
+      frag.appendChild(c);
+      nodes.push(c);
+    }
+
+    document.body.appendChild(frag);
+    setTimeout(() => nodes.forEach((n) => n.remove()), 5500);
+  }
+})();
+</script>
+</body>
+</html>
